@@ -106,9 +106,15 @@ class Logger extends AbstractLogger
             case 'double':
             case 'string':
             case 'null':
-            case 'object':
                 $parsedMessage = (string) $message;
                 break;
+
+            case 'object':
+                if (method_exists($message, '__toString') !== false) {
+                    $parsedMessage = (string) $message;
+                    break;
+                }
+                // Otherwise, go on to default below
 
             default:
                 throw new InvalidArgumentException('Message can only be a string, number or an object which can be cast to a string');
@@ -141,13 +147,16 @@ class Logger extends AbstractLogger
             $parsedContext .= ' / Exception: ' . get_class($exception);
             $parsedContext .= '; message: ' . $exception->getMessage();
             $parsedContext .= '; trace: ' . json_encode($exception->getTrace());
-            $parsedContext .= PHP_EOL;
             unset($contextCopy['exception']);
         }
 
         // Anything else?
         if (count($contextCopy) > 0) {
-            $parsedContext .= ' / Context: ' . json_encode($context);
+            $parsedContext .= ' / Context: ' . json_encode($contextCopy);
+        }
+
+        // Add an extra separator in case we've added stuff in here for readability
+        if ($parsedContext !== '') {
             $parsedContext .= PHP_EOL;
         }
 

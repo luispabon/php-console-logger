@@ -1,5 +1,6 @@
 <?php
 require '../vendor/autoload.php';
+require 'ExampleClass.php';
 
 $console = new PhpConsoleLogger\Console\Logger();
 
@@ -13,7 +14,7 @@ $console->error('This is an error message');
 $console->emergency('This is an emergency message');
 $console->critical('This is a critical message');
 
-// Messages with exceptions
+// Messages with exceptions and traces
 try {
     $exampleClass = new ExampleClass();
     $exampleClass->prepare();
@@ -27,22 +28,13 @@ $console->warning('Some data on context', ['foo' => 'bar']);
 // Messages with random data plus exception
 $console->alert('Some data on context, as well as an exception', ['foo' => 'bar', 'exception' => $ex]);
 
-// Passing on an exception directly as a message
+// Passing on an exception directly as a message (or any object that implements __toString)
 $console->debug($ex);
+
+// Since we're PSR-3, we can be injected on objects that understand LoggerAwareInterface - example class does
+$exampleClass->setLogger($console);
+$exampleClass->runLoggerAwareExample();
 
 // You get the idea
 $console->notice('That\'s it.');
 $console->info('C\'est fini.');
-
-class ExampleClass
-{
-    public function prepare()
-    {
-        $this->doSomething();
-    }
-
-    private function doSomething()
-    {
-        throw new BadMethodCallException('Something dodgy has just happened');
-    }
-}
