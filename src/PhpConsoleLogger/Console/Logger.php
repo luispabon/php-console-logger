@@ -140,14 +140,15 @@ class Logger extends AbstractLogger
             // Construct
             $parsedContext .= ' / Exception: ' . get_class($exception);
             $parsedContext .= '; message: ' . $exception->getMessage();
-            $parsedContext .= '; at: ' . $exception->getFile() . '@' . $exception->getLine();
             $parsedContext .= '; trace: ' . json_encode($exception->getTrace());
+            $parsedContext .= PHP_EOL;
             unset($contextCopy['exception']);
         }
 
         // Anything else?
         if (count($contextCopy) > 0) {
             $parsedContext .= ' / Context: ' . json_encode($context);
+            $parsedContext .= PHP_EOL;
         }
 
         return $parsedContext;
