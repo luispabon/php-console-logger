@@ -1,0 +1,35 @@
+{
+    "name": "luispabon/PhpConsoleLogger",
+    "description": "Simple PSR-3 compliant console logger for PHP",
+    "type" : "library",
+    "keywords": ["php, console, log, logger, loggerinterface, psr3, psr-3, psr 3"],
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "Luis Pabon",
+            "email": "luis.pabon@auronconsulting.co.uk",
+            "role": "developer"
+        }
+    ],
+
+    "autoload": {
+        "psr-4": {
+            "PhpConsoleLogger\\": "src/"
+        }
+    },
+
+    "autoload-dev": {
+        "psr-4": {
+            "PhpConsoleLogger\\Tests": "tests/"
+        }
+    },
+
+    "require": {
+        "php": ">=5.4.0",
+        "psr/log": "^1.0"
+    },
+
+    "require-dev": {
+        "phpunit/phpunit": "^4.8"
+    }
+}
