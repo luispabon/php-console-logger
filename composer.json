@@ -1,5 +1,5 @@
 {
-    "name": "luispabon/PhpConsoleLogger",
+    "name": "AuronConsultingOSS/PhpConsoleLogger",
     "description": "Simple PSR-3 compliant console logger for PHP",
     "type" : "library",
     "keywords": ["php, console, log, logger, loggerinterface, psr3, psr-3, psr 3"],
@@ -20,7 +20,7 @@
 
     "autoload-dev": {
         "psr-4": {
-            "PhpConsoleLogger\\Tests": "tests/"
+            "PhpConsoleLogger\\Tests\\": "tests/"
         }
     },
 
@@ -30,6 +30,7 @@
     },
 
     "require-dev": {
+        "codeclimate/php-test-reporter": "^0.1.2",
         "phpunit/phpunit": "^4.8"
     }
 }
