@@ -11,3 +11,4 @@ script:
     - phpunit
 after_script:
   - bin/test-reporter
+
