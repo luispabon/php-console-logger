@@ -18,7 +18,7 @@ the overhead of adding a full-on PHP console suite.
 
 Requirements
 ------------
-PHP 5.4+.
+PHP 5.4+ or HHVM 3.8+
 
 Installation
 ------------
