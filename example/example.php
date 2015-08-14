@@ -1,5 +1,5 @@
 <?php
-require '../vendor/autoload.php';
+require __DIR__ . '/../vendor/autoload.php';
 require 'ExampleClass.php';
 
 $console = new PhpConsoleLogger\Console\Logger();
