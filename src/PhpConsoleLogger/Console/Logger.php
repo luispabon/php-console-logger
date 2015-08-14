@@ -144,9 +144,10 @@ class Logger extends AbstractLogger
             $exception = $contextCopy['exception'];
 
             // Construct
-            $parsedContext .= ' / Exception: ' . get_class($exception);
-            $parsedContext .= '; message: ' . $exception->getMessage();
-            $parsedContext .= '; trace: ' . json_encode($exception->getTrace());
+            $format = ' / Exception: %s; message: %s; trace: %s';
+            $parsedContext .= sprintf($format, get_class($exception), $exception->getMessage(), json_encode($exception->getTrace()));
+
+            // Remove exception to avoid showing up on context below
             unset($contextCopy['exception']);
         }
 
