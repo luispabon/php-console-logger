@@ -14,7 +14,7 @@ the overhead of adding a full-on PHP console suite.
 
 Requirements
 ------------
-Very little: PHP 5.4+.
+PHP 5.4+.
 
 Installation
 ------------

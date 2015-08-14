@@ -75,7 +75,7 @@ class Logger extends AbstractLogger
         $parsedMessage .= $this->parseContext($context);
 
         // Speak!
-        $this->outputToConsole($level, $parsedMessage);
+        $this->output($this->format($level, $parsedMessage));
     }
 
     /**
@@ -105,7 +105,7 @@ class Logger extends AbstractLogger
             case 'integer':
             case 'double':
             case 'string':
-            case 'null':
+            case 'NULL':
                 $parsedMessage = (string) $message;
                 break;
 
@@ -164,16 +164,25 @@ class Logger extends AbstractLogger
     }
 
     /**
-     * Actually write to console.
+     * Format message for the console.
      *
      * @param string $level
      * @param string $message
+     *
+     * @return string
      */
-    private function outputToConsole($level, $message)
+    protected function format($level, $message)
     {
-        // Output to console
-        $message = "\033[" . $this->logPrefixesPerLevel[$level] . "\033[0m " . $message;
-        echo $message, PHP_EOL;
-        flush();
+        return "\033[" . $this->logPrefixesPerLevel[$level] . "\033[0m " . $message;
+    }
+
+    /**
+     * Actually output now to STDOUT.
+     *
+     * @param string $string
+     */
+    protected function output($string)
+    {
+        fwrite(STDOUT, $string . PHP_EOL);
     }
 }
