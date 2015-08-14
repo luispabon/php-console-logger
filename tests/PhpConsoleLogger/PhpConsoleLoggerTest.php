@@ -3,7 +3,6 @@ namespace PhpConsoleLogger\Tests;
 
 use PhpConsoleLogger\Console\Logger;
 use Psr\Log\LogLevel;
-use Symfony\Component\Config\Definition\Exception\Exception;
 
 class PhpConsoleLoggerTest extends \PHPUnit_Framework_TestCase
 {
@@ -24,7 +23,7 @@ class PhpConsoleLoggerTest extends \PHPUnit_Framework_TestCase
     public function logAcceptsScalarValues($value)
     {
         $logLevel = LogLevel::INFO;
-        $message = (string) $value;
+        $message  = (string) $value;
 
         $this->logger
             ->expects(self::once())
@@ -57,7 +56,7 @@ class PhpConsoleLoggerTest extends \PHPUnit_Framework_TestCase
     public function logAcceptsStringableObjects($object)
     {
         $logLevel = LogLevel::INFO;
-        $message = (string) $object;
+        $message  = (string) $object;
 
         $this->logger
             ->expects(self::once())
@@ -83,6 +82,39 @@ class PhpConsoleLoggerTest extends \PHPUnit_Framework_TestCase
         $this->logger->log(uniqid('foo', true), 'foo');
     }
 
+    /**
+     * @test
+     */
+    public function logParsesExceptionInContext()
+    {
+        $exceptionMessage = 'foo';
+        $message          = 'bar';
+        $logLevel         = LogLevel::CRITICAL;
+
+        $exception = new \Exception($exceptionMessage);
+
+        $context = ['exception' => $exception];
+
+        // Bit of a stretch to check for the exception trace and all, just check the general format and contents
+        $argumentCheckCallback = function($arg) use ($message, $exception) {
+            $pattern = sprintf('/^%s \/ Exception\: %s\; message\: %s\; trace\:/', $message, get_class($exception), $exception->getMessage());
+            return preg_match($pattern, $arg) === 1;
+        };
+
+        $this->logger
+            ->expects(self::once())
+            ->method('format')
+            ->with($logLevel, self::callback($argumentCheckCallback))
+            ->will(self::returnValue($message));
+
+        $this->logger
+            ->expects(self::once())
+            ->method('output')
+            ->with($message);
+
+        $this->logger->log($logLevel, $message, $context);
+    }
+
 
     /***** Data providers *****/
 
@@ -105,7 +137,7 @@ class PhpConsoleLoggerTest extends \PHPUnit_Framework_TestCase
     {
         return [
             [new stringableClass()],
-            [new Exception()],
+            [new \Exception()],
         ];
     }
 }
