@@ -18,7 +18,7 @@ use Psr\Log\InvalidArgumentException;
  * @copyright 2015 Luis Pabon
  * @link      https://github.com/AuronConsultingOSS/PhpConsoleLogger
  * @license   http://www.apache.org/licenses/LICENSE-2.0
- * @version   0.1-dev
+ * @version   1.0.0
  * @package   PhpConsoleLogger
  */
 class Logger extends AbstractLogger
