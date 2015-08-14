@@ -1,3 +1,4 @@
+<a href="https://codeclimate.com/github/luispabon/PhpConsoleLogger"><img src="https://codeclimate.com/github/luispabon/PhpConsoleLogger/badges/gpa.svg" /></a>
 README
 ======
 
