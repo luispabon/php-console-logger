@@ -73,6 +73,16 @@ class PhpConsoleLoggerTest extends \PHPUnit_Framework_TestCase
         $this->logger->log($logLevel, $object);
     }
 
+    /**
+     * @test
+     * @expectedException \Psr\Log\InvalidArgumentException
+     * @expectedExceptionMessage Logger method not recognised
+     */
+    public function logDoesntAcceptNonsensicalLogLevels()
+    {
+        $this->logger->log(uniqid('foo', true), 'foo');
+    }
+
 
     /***** Data providers *****/
 
