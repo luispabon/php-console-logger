@@ -1,5 +1,5 @@
 {
-    "name": "luispabon/PhpConsoleLogger",
+    "name": "AuronConsultingOSS/PhpConsoleLogger",
     "description": "Simple PSR-3 compliant console logger for PHP",
     "type" : "library",
     "keywords": ["php, console, log, logger, loggerinterface, psr3, psr-3, psr 3"],

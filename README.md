@@ -1,6 +1,6 @@
-[![Build Status](https://travis-ci.org/luispabon/PhpConsoleLogger.svg?branch=dev)](https://travis-ci.org/luispabon/PhpConsoleLogger)
-[![Code quality](https://codeclimate.com/github/luispabon/PhpConsoleLogger/badges/gpa.svg)](https://codeclimate.com/github/luispabon/PhpConsoleLogger)
-[![Code coverage](https://codeclimate.com/github/luispabon/PhpConsoleLogger/badges/coverage.svg)](https://codeclimate.com/github/luispabon/PhpConsoleLogger/coverage)
+[![Build Status](https://travis-ci.org/AuronConsultingOSS/PhpConsoleLogger.svg?branch=dev)](https://travis-ci.org/AuronConsultingOSS/PhpConsoleLogger)
+[![Code quality](https://codeclimate.com/github/AuronConsultingOSS/PhpConsoleLogger/badges/gpa.svg)](https://codeclimate.com/github/AuronConsultingOSS/PhpConsoleLogger)
+[![Code coverage](https://codeclimate.com/github/AuronConsultingOSS/PhpConsoleLogger/badges/coverage.svg)](https://codeclimate.com/github/AuronConsultingOSS/PhpConsoleLogger/coverage)
 
 README
 ======
@@ -22,7 +22,7 @@ PHP 5.4+ or HHVM 3.8+
 
 Installation
 ------------
-The preferred method is through composer, via ```composer require luispabon/PhpConsoleLogger```. You can always download
+The preferred method is through composer, via ```composer require AuronConsultingOSS/PhpConsoleLogger```. You can always download
 and install manually, but you'd need to somehow shoehorn both psr/log and PhpConsoleLogger into your autoload mechanism.
 
 Contributing

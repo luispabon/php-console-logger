@@ -16,7 +16,7 @@ use Psr\Log\InvalidArgumentException;
  *
  * @author    Luis Pabon <luis.pabon@auronconsulting.co.uk>
  * @copyright 2015 Luis Pabon
- * @link      https://github.com/luispabon/PhpConsoleLogger
+ * @link      https://github.com/AuronConsultingOSS/PhpConsoleLogger
  * @license   http://www.apache.org/licenses/LICENSE-2.0
  * @version   0.1-dev
  * @package   PhpConsoleLogger
