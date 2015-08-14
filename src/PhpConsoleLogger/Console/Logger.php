@@ -174,7 +174,7 @@ class Logger extends AbstractLogger
      */
     protected function format($level, $message)
     {
-        return "\033[" . $this->logPrefixesPerLevel[$level] . "\033[0m " . $message;
+        return "\033[" . $this->logPrefixesPerLevel[$level] . "\033[0m " . $message . PHP_EOL;
     }
 
     /**
@@ -184,6 +184,6 @@ class Logger extends AbstractLogger
      */
     protected function output($string)
     {
-        fwrite(STDOUT, $string . PHP_EOL);
+        fwrite(STDOUT, $string);
     }
 }
