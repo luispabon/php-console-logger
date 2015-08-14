@@ -1,6 +1,7 @@
-<a href="https://codeclimate.com/github/luispabon/PhpConsoleLogger"><img src="https://codeclimate.com/github/luispabon/PhpConsoleLogger/badges/gpa.svg" /></a>
-<a href="https://codeclimate.com/github/luispabon/PhpConsoleLogger/coverage"><img src="https://codeclimate.com/github/luispabon/PhpConsoleLogger/badges/coverage.svg" /></a>
-<a href="https://travis-ci.org/luispabon/PhpConsoleLogger"><img src="https://travis-ci.org/luispabon/PhpConsoleLogger.svg?branch=dev" /></a>
+[![Build Status](https://travis-ci.org/luispabon/PhpConsoleLogger.svg?branch=dev)](https://travis-ci.org/luispabon/PhpConsoleLogger)
+[![Code quality](https://codeclimate.com/github/luispabon/PhpConsoleLogger/badges/gpa.svg)](https://codeclimate.com/github/luispabon/PhpConsoleLogger)
+[![Code coverage](https://codeclimate.com/github/luispabon/PhpConsoleLogger/badges/coverage.svg)](https://codeclimate.com/github/luispabon/PhpConsoleLogger/coverage)
+
 README
 ======
 
