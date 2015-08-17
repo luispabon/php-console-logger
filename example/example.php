@@ -2,7 +2,7 @@
 require __DIR__ . '/../vendor/autoload.php';
 require 'ExampleClass.php';
 
-$console = new PhpConsoleLogger\Console\Logger();
+$console = new AuronConsultingOSS\PhpConsoleLogger\Logger();
 
 // Straight string messages
 $console->info('This is an info message');
