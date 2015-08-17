@@ -1,10 +1,10 @@
 <?php
 namespace PhpConsoleLogger\Tests;
 
-use PhpConsoleLogger\Console\Logger;
+use AuronConsultingOSS\PhpConsoleLogger\Logger;
 use Psr\Log\LogLevel;
 
-class PhpConsoleLoggerTest extends \PHPUnit_Framework_TestCase
+class LoggerTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var Logger|\PHPUnit_Framework_MockObject_MockObject
@@ -13,7 +13,7 @@ class PhpConsoleLoggerTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->logger = $this->getMock('PhpConsoleLogger\Console\Logger', ['output', 'format']);
+        $this->logger = $this->getMock('AuronConsultingOSS\PhpConsoleLogger\Logger', ['output', 'format']);
     }
 
     /**
@@ -155,7 +155,7 @@ class PhpConsoleLoggerTest extends \PHPUnit_Framework_TestCase
         $logLevel = LogLevel::WARNING;
 
         // Not mocking format this time
-        $logger = $this->getMock('PhpConsoleLogger\Console\Logger', ['output']);
+        $logger = $this->getMock('AuronConsultingOSS\PhpConsoleLogger\Logger', ['output']);
 
         // Bit of a stretch to check for the exception trace and all, just check the general format and contents
         $argumentCheckCallback = function ($arg) use ($logLevel, $message) {
@@ -183,7 +183,7 @@ class PhpConsoleLoggerTest extends \PHPUnit_Framework_TestCase
         // There doesn't seem any way at all to silence (or capture, even with ob) stdout
         // and I don't want any boilerplate logic to inject fake in memory output - the following
         // silences the logger completely, in a hackish sort of way
-        $logger = $this->getMock('PhpConsoleLogger\Console\Logger', ['format']);
+        $logger = $this->getMock('AuronConsultingOSS\PhpConsoleLogger\Logger', ['format']);
 
         self::assertNull($logger->log(LogLevel::WARNING, 'foobar'));
     }

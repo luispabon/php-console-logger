@@ -1,5 +1,5 @@
 <?php
-namespace PhpConsoleLogger\Console;
+namespace AuronConsultingOSS\PhpConsoleLogger;
 
 use Psr\Log\LogLevel;
 use Psr\Log\AbstractLogger;

@@ -14,13 +14,13 @@
 
     "autoload": {
         "psr-4": {
-            "PhpConsoleLogger\\": "src/"
+            "AuronConsultingOSS\\PhpConsoleLogger\\": "src/"
         }
     },
 
     "autoload-dev": {
         "psr-4": {
-            "PhpConsoleLogger\\Tests\\": "tests/"
+            "AuronConsultingOSS\\PhpConsoleLogger\\Tests\\": "tests/"
         }
     },
 

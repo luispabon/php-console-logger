@@ -22,7 +22,7 @@ PHP 5.4+ or HHVM 3.8+
 
 Installation
 ------------
-The preferred method is through composer, via ```composer require AuronConsultingOSS/PhpConsoleLogger```. You can always download
+The preferred method is through composer, via ```composer require auron-consulting-oss/php-console-logger```. You can always download
 and install manually, but you'd need to somehow shoehorn both psr/log and PhpConsoleLogger into your autoload mechanism.
 
 Contributing
@@ -38,7 +38,7 @@ I have provided with an example (code and output below) you can run by running `
 require '../vendor/autoload.php';
 require 'ExampleClass.php';
 
-$console = new PhpConsoleLogger\Console\Logger();
+$console = new AuronConsultingOSS\PhpConsoleLogger\Logger();
 
 // Straight string messages
 $console->info('This is an info message');
