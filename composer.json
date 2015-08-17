@@ -2,7 +2,7 @@
     "name": "auron-consulting-oss/php-console-logger",
     "description": "Simple PSR-3 compliant console logger for PHP",
     "type" : "library",
-    "keywords": ["php, console, log, logger, loggerinterface, psr3, psr-3, psr 3"],
+    "keywords": ["php", "console", "terminal", "log", "logger", "loggerinterface", "psr3", "psr-3", "psr 3"],
     "license": "Apache-2.0",
     "authors": [
         {
