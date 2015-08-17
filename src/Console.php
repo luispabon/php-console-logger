@@ -1,5 +1,5 @@
 <?php
-namespace AuronConsultingOSS\PhpConsoleLogger;
+namespace AuronConsultingOSS\Logger;
 
 use Psr\Log\LogLevel;
 use Psr\Log\AbstractLogger;
@@ -20,7 +20,7 @@ use Psr\Log\InvalidArgumentException;
  * @license   http://www.apache.org/licenses/LICENSE-2.0
  * @package   PhpConsoleLogger
  */
-class Logger extends AbstractLogger
+class Console extends AbstractLogger
 {
     /**
      * Console-coloured prefixes to add to log messages.
@@ -64,7 +64,7 @@ class Logger extends AbstractLogger
     {
         // Do not allow users to supply nonsense on the log level
         if (array_key_exists($level, $this->logPrefixesPerLevel) === false) {
-            throw new InvalidArgumentException('Logger method not recognised');
+            throw new InvalidArgumentException('Console method not recognised');
         }
 
         // Parse message into a string we can use

@@ -27,7 +27,7 @@ and install manually, but you'd need to somehow shoehorn both psr/log and PhpCon
 
 Contributing
 ------------
-If you use Github, you already know the drill: fork, branch and pull request.
+If you use Github, you already know the drill: fork, branch from dev and pull request.
 
 Examples
 -------------
@@ -38,7 +38,7 @@ I have provided with an example (code and output below) you can run by running `
 require '../vendor/autoload.php';
 require 'ExampleClass.php';
 
-$console = new AuronConsultingOSS\PhpConsoleLogger\Logger();
+$console = new AuronConsultingOSS\Logger\Console();
 
 // Straight string messages
 $console->info('This is an info message');
