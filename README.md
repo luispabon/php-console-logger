@@ -27,7 +27,7 @@ and install manually, but you'd need to somehow shoehorn both psr/log and PhpCon
 
 Contributing
 ------------
-If you use Github, you already know the drill: fork, branch and pull request.
+If you use Github, you already know the drill: fork, branch from dev and pull request.
 
 Examples
 -------------
