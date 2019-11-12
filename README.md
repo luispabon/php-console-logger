@@ -20,12 +20,17 @@ ext-json
 The preferred method is through composer, via ```composer require auron-consulting-oss/php-console-logger```. You can always download
 and install manually, but you'd need to somehow shoehorn both psr/log and PhpConsoleLogger into your autoload mechanism.
 
+## Upgrading
+
+If upgrading from 1.x, the logger will now by default print a timestamp next to the log message. You can disable it
+by passing `false` to the constructor.
+
 ## Usage
 ```php
-// No timestamps (default)
+// No timestamps
 $consoleLogger = new AuronConsultingOSS\Logger\Console(false);
 
-// With timestamps
+// With timestamps (default)
 $console = new AuronConsultingOSS\Logger\Console(true);
 
 [ ... ]
