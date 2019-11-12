@@ -57,7 +57,7 @@ class Console extends AbstractLogger
      * @param string $message
      * @param array  $context
      *
-     * @return void
+     * @return void|null
      *
      * @throws InvalidArgumentException
      */
