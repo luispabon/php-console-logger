@@ -10,7 +10,7 @@ resources:
   - name: code
     type: pull-request
     source:
-      repository: luispabon/favicon-finder
+      repository: luispabon/php-console-logger
       access_token: {{github-access-token}}
       disable_ci_skip: false
 
