@@ -156,7 +156,7 @@ class ConsoleTest extends TestCase
     /**
      * @test
      */
-    public function formatGeneratesCorrectEntryHeader(): void
+    public function formatGeneratesCorrectEntryHeaderWithoutTimestamps(): void
     {
         $message  = 'foobar';
         $logLevel = LogLevel::WARNING;
@@ -170,6 +170,40 @@ class ConsoleTest extends TestCase
             self::assertRegExp("/{$logLevel}/i", $arg);
             self::assertRegExp("/{$message}/", $arg);
             self::assertRegExp("/\\033\[0m/", $arg);
+
+            return true;
+        };
+
+        $logger
+            ->expects(self::once())
+            ->method('output')
+            ->with(self::callback($argumentCheckCallback));
+
+        $logger->log($logLevel, $message);
+    }
+
+    /**
+     * @test
+     */
+    public function formatGeneratesCorrectEntryHeaderWithTimestamps(): void
+    {
+        $message  = 'foobar';
+        $logLevel = LogLevel::WARNING;
+
+        // Not mocking format this time
+        $logger = $this
+            ->getMockBuilder(Console::class)
+            ->onlyMethods(['output'])
+            ->setConstructorArgs([true])
+            ->getMock();
+
+        // Bit of a stretch to check for the exception trace and all, just check the general format and contents
+        $argumentCheckCallback = function ($arg) use ($logLevel, $message) {
+            self::assertRegExp("/^\\033\[/", $arg);
+            self::assertRegExp("/{$logLevel}/i", $arg);
+            self::assertRegExp("/{$message}/", $arg);
+            self::assertRegExp("/\\033\[0m/", $arg);
+            self::assertRegExp('/(\d{4})-(\d{2})-(\d{2})T(\d{2})\:(\d{2})\:(\d{2})\+(\d{2})\:(\d{2})/', $arg);
 
             return true;
         };

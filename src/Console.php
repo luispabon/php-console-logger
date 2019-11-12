@@ -45,6 +45,9 @@ class Console extends AbstractLogger
      */
     private $enableTimestamp;
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function __construct(bool $enableTimestamp = true)
     {
         $this->enableTimestamp = $enableTimestamp;
