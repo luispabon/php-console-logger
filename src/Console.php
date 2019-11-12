@@ -5,6 +5,7 @@ namespace AuronConsultingOSS\Logger;
 use Psr\Log\AbstractLogger;
 use Psr\Log\InvalidArgumentException;
 use Psr\Log\LogLevel;
+use Throwable;
 
 /**
  * PhpConsoleLogger - a simple PSR-3 compliant console logger.
@@ -136,18 +137,25 @@ class Console extends AbstractLogger
      */
     private function parseContext(array $context): string
     {
-        $parsedContext = '';
         $contextCopy   = $context;
+        $exceptionText = '';
+        $extraContext  = '';
 
-        // Exception?
-        if (array_key_exists('exception',
-                $contextCopy) === true && $contextCopy['exception'] instanceof \Exception === true) {
+        // Parse exception out into a string
+        if (
+            array_key_exists('exception', $contextCopy) === true &&
+            $contextCopy['exception'] instanceof Throwable === true
+        ) {
             $exception = $contextCopy['exception'];
 
             // Construct
             $format        = ' / Exception: %s; message: %s; trace: %s';
-            $parsedContext .= sprintf($format, get_class($exception), $exception->getMessage(),
-                json_encode($exception->getTrace()));
+            $exceptionText = sprintf(
+                $format,
+                get_class($exception),
+                $exception->getMessage(),
+                json_encode($exception->getTrace())
+            );
 
             // Remove exception to avoid showing up on context below
             unset($contextCopy['exception']);
@@ -155,8 +163,14 @@ class Console extends AbstractLogger
 
         // Anything else?
         if (count($contextCopy) > 0) {
-            $parsedContext .= ' / Context: ' . json_encode($contextCopy);
+            $extraContext = ' / Context: ' . json_encode($contextCopy);
         }
+
+        $parsedContext = sprintf(
+            '%s%s',
+            $exceptionText,
+            $extraContext
+        );
 
         // Add an extra separator in case we've added stuff in here for readability
         if ($parsedContext !== '') {
