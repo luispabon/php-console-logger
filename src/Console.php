@@ -197,6 +197,8 @@ class Console extends AbstractLogger
      * Actually output now to STDOUT.
      *
      * @param string $string
+     *
+     * @codeCoverageIgnore cannot test writing to stdout, so ignore coverage here
      */
     protected function output(string $string): void
     {
