@@ -1,26 +1,32 @@
 <?php
+
 namespace Console\Tests;
 
 use AuronConsultingOSS\Logger\Console;
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
+use Psr\Log\InvalidArgumentException;
 use Psr\Log\LogLevel;
 
-class ConsoleTest extends \PHPUnit_Framework_TestCase
+class ConsoleTest extends TestCase
 {
     /**
-     * @var Console|\PHPUnit_Framework_MockObject_MockObject
+     * @var Console|MockObject
      */
     private $logger;
 
-    public function setUp()
+    public function setUp(): void
     {
-        $this->logger = $this->getMock('AuronConsultingOSS\Logger\Console', ['output', 'format']);
+//        $this->logger = $this->getMock('AuronConsultingOSS\Logger\Console', ['output', 'format']);
+
+        $this->logger = $this->getMockBuilder(Console::class)->onlyMethods(['output', 'format'])->getMock();
     }
 
     /**
      * @test
      * @dataProvider validScalarValues
      */
-    public function logAcceptsScalarValues($value)
+    public function logAcceptsScalarValues($value): void
     {
         $logLevel = LogLevel::INFO;
         $message  = (string) $value;
@@ -41,11 +47,12 @@ class ConsoleTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @expectedException \Psr\Log\InvalidArgumentException
-     * @expectedExceptionMessage Message can only be a string, number or an object which can be cast to a string
      */
-    public function logDoesntAcceptUnstringableObjects()
+    public function logDoesntAcceptUnstringableObjects(): void
     {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Message can only be a string, number or an object which can be cast to a string');
+
         $this->logger->log(LogLevel::ALERT, new \stdClass());
     }
 
@@ -53,7 +60,7 @@ class ConsoleTest extends \PHPUnit_Framework_TestCase
      * @test
      * @dataProvider validStringableObjects
      */
-    public function logAcceptsStringableObjects($object)
+    public function logAcceptsStringableObjects($object): void
     {
         $logLevel = LogLevel::INFO;
         $message  = (string) $object;
@@ -74,18 +81,19 @@ class ConsoleTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @expectedException \Psr\Log\InvalidArgumentException
-     * @expectedExceptionMessage Console method not recognised
      */
-    public function logDoesntAcceptNonsensicalLogLevels()
+    public function logDoesntAcceptNonsensicalLogLevels(): void
     {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Console method not recognised');
+
         $this->logger->log(uniqid('foo', true), 'foo');
     }
 
     /**
      * @test
      */
-    public function logParsesExceptionInContext()
+    public function logParsesExceptionInContext(): void
     {
         $exceptionMessage = 'foo';
         $message          = 'bar';
@@ -97,7 +105,8 @@ class ConsoleTest extends \PHPUnit_Framework_TestCase
 
         // Bit of a stretch to check for the exception trace and all, just check the general format and contents
         $argumentCheckCallback = function ($arg) use ($message, $exception) {
-            $pattern = sprintf('/^%s \/ Exception\: %s\; message\: %s\; trace\:/', $message, get_class($exception), $exception->getMessage());
+            $pattern = sprintf('/^%s \/ Exception\: %s\; message\: %s\; trace\:/', $message, get_class($exception),
+                $exception->getMessage());
 
             return preg_match($pattern, $arg) === 1;
         };
@@ -119,7 +128,7 @@ class ConsoleTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function logParsesContextWithoutException()
+    public function logParsesContextWithoutException(): void
     {
         $context  = ['foo' => 'bar'];
         $message  = 'foobar';
@@ -149,13 +158,13 @@ class ConsoleTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function formatGeneratesCorrectEntryHeader()
+    public function formatGeneratesCorrectEntryHeader(): void
     {
         $message  = 'foobar';
         $logLevel = LogLevel::WARNING;
 
         // Not mocking format this time
-        $logger = $this->getMock('AuronConsultingOSS\Logger\Console', ['output']);
+        $logger = $this->getMockBuilder(Console::class)->onlyMethods(['output'])->getMock();
 
         // Bit of a stretch to check for the exception trace and all, just check the general format and contents
         $argumentCheckCallback = function ($arg) use ($logLevel, $message) {
@@ -175,42 +184,28 @@ class ConsoleTest extends \PHPUnit_Framework_TestCase
         $logger->log($logLevel, $message);
     }
 
-    /**
-     * @test
-     */
-    public function logIsVoid()
-    {
-        // There doesn't seem any way at all to silence (or capture, even with ob) stdout
-        // and I don't want any boilerplate logic to inject fake in memory output - the following
-        // silences the logger completely, in a hackish sort of way
-        $logger = $this->getMock('AuronConsultingOSS\Logger\Console', ['format']);
-
-        self::assertNull($logger->log(LogLevel::WARNING, 'foobar'));
-    }
-
-
     /***** Data providers *****/
 
     private $scalarValues = [
-        [19.8],
-        ['foo'],
-        [-8],
-        [null],
-        [''],
-        [false],
-        [true],
+        'float'            => [19.8],
+        'string'           => ['foo'],
+        'negative integer' => [-8],
+        'null'             => [null],
+        'empty string'     => [''],
+        'false'            => [false],
+        'true'             => [true],
     ];
 
-    public function validScalarValues()
+    public function validScalarValues(): array
     {
         return $this->scalarValues;
     }
 
-    public function validStringableObjects()
+    public function validStringableObjects(): array
     {
         return [
-            [new stringableClass()],
-            [new \Exception()],
+            'stringable class'  => [new stringableClass()],
+            'generic exception' => [new \Exception()],
         ];
     }
 }

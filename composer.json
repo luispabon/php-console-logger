@@ -25,12 +25,12 @@
     },
 
     "require": {
-        "php": ">=5.4.0",
+        "php": ">=7.2.0",
         "psr/log": "^1.0"
     },
 
     "require-dev": {
         "codeclimate/php-test-reporter": "^0.1.2",
-        "phpunit/phpunit": "^4.8"
+        "phpunit/phpunit": "^8.0"
     }
 }

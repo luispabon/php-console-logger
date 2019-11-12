@@ -1,3 +1,6 @@
 .idea
 vendor
 credentials.yaml
+reports/
+.phpunit.result.cache
+
