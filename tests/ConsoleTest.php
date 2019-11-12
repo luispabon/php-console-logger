@@ -17,8 +17,6 @@ class ConsoleTest extends TestCase
 
     public function setUp(): void
     {
-//        $this->logger = $this->getMock('AuronConsultingOSS\Logger\Console', ['output', 'format']);
-
         $this->logger = $this->getMockBuilder(Console::class)->onlyMethods(['output', 'format'])->getMock();
     }
 
