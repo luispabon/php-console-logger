@@ -31,14 +31,14 @@ class Console extends AbstractLogger
      * @var array
      */
     private $logPrefixesPerLevel = [
-        LogLevel::INFO      => '1;32m [ Info %s ]     ',
-        LogLevel::NOTICE    => '1;35m [ Notice %s ]   ',
-        LogLevel::DEBUG     => '1;34m [ Debug %s ]    ',
-        LogLevel::WARNING   => '1;33m [ Warning %s ]  ',
-        LogLevel::ALERT     => '3;33m [ Alert %s ]    ',
-        LogLevel::ERROR     => '1;31m [ Error %s ]    ',
-        LogLevel::EMERGENCY => '3;33m [ Emergency %s ]',
-        LogLevel::CRITICAL  => '1;31m [ Critical %s ] ',
+        LogLevel::INFO      => '1;32m [ Info %s]     ',
+        LogLevel::NOTICE    => '1;35m [ Notice %s]   ',
+        LogLevel::DEBUG     => '1;34m [ Debug %s]    ',
+        LogLevel::WARNING   => '1;33m [ Warning %s]  ',
+        LogLevel::ALERT     => '3;33m [ Alert %s]    ',
+        LogLevel::ERROR     => '1;31m [ Error %s]    ',
+        LogLevel::EMERGENCY => '3;33m [ Emergency %s]',
+        LogLevel::CRITICAL  => '1;31m [ Critical %s] ',
     ];
     /**
      * @var bool
@@ -205,7 +205,7 @@ class Console extends AbstractLogger
     {
         $timestamp = '';
         if ($this->enableTimestamp === true) {
-            $timestamp = sprintf("\e[1m- %s", (new DateTime())->format(DATE_ATOM));
+            $timestamp = sprintf("\e[1m- %s ", (new DateTime())->format(DATE_ATOM));
         }
 
         // Evaluate %s within the log prefix to add formatted timestamp to
