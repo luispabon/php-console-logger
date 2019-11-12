@@ -1,6 +1,5 @@
-[![Build Status](https://travis-ci.org/AuronConsultingOSS/PhpConsoleLogger.svg?branch=dev)](https://travis-ci.org/AuronConsultingOSS/PhpConsoleLogger)
-[![Code quality](https://codeclimate.com/github/AuronConsultingOSS/PhpConsoleLogger/badges/gpa.svg)](https://codeclimate.com/github/AuronConsultingOSS/PhpConsoleLogger)
-[![Code coverage](https://codeclimate.com/github/AuronConsultingOSS/PhpConsoleLogger/badges/coverage.svg)](https://codeclimate.com/github/AuronConsultingOSS/PhpConsoleLogger/coverage)
+[![Build status](https://ci.auronconsulting.co.uk/api/v1/teams/main/pipelines/php-console-logger-master/jobs/analyze-master/badge)](https://ci.auronconsulting.co.uk/teams/main/pipelines/php-console-logger-master)
+[![Code coverage](https://codecov.io/gh/luispabon/php-console-logger/branch/master/graph/badge.svg)](https://codecov.io/gh/luispabon/php-console-logger)
 
 # PHP Console Logger
 PhpConsoleLogger is a small class that implements a way to display messages in a console with an interface which is
