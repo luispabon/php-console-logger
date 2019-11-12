@@ -2,11 +2,7 @@
 [![Code quality](https://codeclimate.com/github/AuronConsultingOSS/PhpConsoleLogger/badges/gpa.svg)](https://codeclimate.com/github/AuronConsultingOSS/PhpConsoleLogger)
 [![Code coverage](https://codeclimate.com/github/AuronConsultingOSS/PhpConsoleLogger/badges/coverage.svg)](https://codeclimate.com/github/AuronConsultingOSS/PhpConsoleLogger/coverage)
 
-README
-======
-
-What is PhpConsoleLogger?
------------------
+# PHP Console Logger
 PhpConsoleLogger is a small class that implements a way to display messages in a console with an interface which is
 PSR-3 compatible. This means you can drop it in as a logger on code that is PSR-3 LoggerAwareInterface compatible and away
 you go.
@@ -16,21 +12,40 @@ This logger is really meant to be used for command line scripts due to shell-spe
 You might want to use this on those command line scripts we all use to do things like migrations, data fixes etc; without
 the overhead of adding a full-on PHP console suite.
 
-Requirements
-------------
-PHP 5.4+ or HHVM 3.8+
+## Requirements
+PHP 7.2+
+ext-json
 
-Installation
-------------
+## Installation
 The preferred method is through composer, via ```composer require auron-consulting-oss/php-console-logger```. You can always download
 and install manually, but you'd need to somehow shoehorn both psr/log and PhpConsoleLogger into your autoload mechanism.
 
-Contributing
-------------
-If you use Github, you already know the drill: fork, branch from dev and pull request.
+## Usage
+```php
+// No timestamps (default)
+$consoleLogger = new AuronConsultingOSS\Logger\Console(false);
 
-Examples
--------------
+// With timestamps
+$console = new AuronConsultingOSS\Logger\Console(true);
+
+[ ... ]
+
+// Then, simply use like a regular PSR-3 logger
+$console->info('Whatever', ['extra_stuff' => 'maybe']);
+```
+
+## Contributing
+
+Fork this repo, do your stuff, send a PR. Tests are mandatory:
+
+  * PHP unit coverage must be 100%
+  * Infection MSI must be 100%
+  * PHPStan must show no errors 
+  
+The provided [Makefile](Makefile) has all the basic test targets and is what's in use in CI.
+
+## Examples
+
 I have provided with an example (code and output below) you can run by running ```php example/example.php```.
 
 ```php
