@@ -3,4 +3,4 @@ vendor
 credentials.yaml
 reports/
 .phpunit.result.cache
-
+composer.lock
