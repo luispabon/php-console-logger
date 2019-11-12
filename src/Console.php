@@ -1,9 +1,11 @@
 <?php
+
 namespace AuronConsultingOSS\Logger;
 
-use Psr\Log\LogLevel;
 use Psr\Log\AbstractLogger;
 use Psr\Log\InvalidArgumentException;
+use Psr\Log\LogLevel;
+use Throwable;
 
 /**
  * PhpConsoleLogger - a simple PSR-3 compliant console logger.
@@ -56,7 +58,7 @@ class Console extends AbstractLogger
      * @param string $message
      * @param array  $context
      *
-     * @return void
+     * @return void|null
      *
      * @throws InvalidArgumentException
      */
@@ -91,7 +93,7 @@ class Console extends AbstractLogger
      *
      * @see: http://www.php-fig.org/psr/psr-3/#1-2-message
      */
-    private function parseMessage($message)
+    private function parseMessage($message): string
     {
         $parsedMessage = null;
 
@@ -113,7 +115,7 @@ class Console extends AbstractLogger
                     $parsedMessage = (string) $message;
                     break;
                 }
-                // Otherwise, go on to default below
+            // Otherwise, go on to default below
 
             default:
                 throw new InvalidArgumentException('Message can only be a string, number or an object which can be cast to a string');
@@ -133,18 +135,27 @@ class Console extends AbstractLogger
      *
      * @see: http://www.php-fig.org/psr/psr-3/#1-3-context
      */
-    private function parseContext(array $context)
+    private function parseContext(array $context): string
     {
-        $parsedContext = '';
         $contextCopy   = $context;
+        $exceptionText = '';
+        $extraContext  = '';
 
-        // Exception?
-        if (array_key_exists('exception', $contextCopy) === true && $contextCopy['exception'] instanceof \Exception === true) {
+        // Parse exception out into a string
+        if (
+            array_key_exists('exception', $contextCopy) === true &&
+            $contextCopy['exception'] instanceof Throwable === true
+        ) {
             $exception = $contextCopy['exception'];
 
             // Construct
-            $format = ' / Exception: %s; message: %s; trace: %s';
-            $parsedContext .= sprintf($format, get_class($exception), $exception->getMessage(), json_encode($exception->getTrace()));
+            $format        = ' / Exception: %s; message: %s; trace: %s';
+            $exceptionText = sprintf(
+                $format,
+                get_class($exception),
+                $exception->getMessage(),
+                json_encode($exception->getTrace())
+            );
 
             // Remove exception to avoid showing up on context below
             unset($contextCopy['exception']);
@@ -152,8 +163,14 @@ class Console extends AbstractLogger
 
         // Anything else?
         if (count($contextCopy) > 0) {
-            $parsedContext .= ' / Context: ' . json_encode($contextCopy);
+            $extraContext = ' / Context: ' . json_encode($contextCopy);
         }
+
+        $parsedContext = sprintf(
+            '%s%s',
+            $exceptionText,
+            $extraContext
+        );
 
         // Add an extra separator in case we've added stuff in here for readability
         if ($parsedContext !== '') {
@@ -171,7 +188,7 @@ class Console extends AbstractLogger
      *
      * @return string
      */
-    protected function format($level, $message)
+    protected function format(string $level, string $message): string
     {
         return "\033[" . $this->logPrefixesPerLevel[$level] . "\033[0m " . $message . PHP_EOL;
     }
@@ -180,8 +197,10 @@ class Console extends AbstractLogger
      * Actually output now to STDOUT.
      *
      * @param string $string
+     *
+     * @codeCoverageIgnore cannot test writing to stdout, so ignore coverage here
      */
-    protected function output($string)
+    protected function output(string $string): void
     {
         fwrite(STDOUT, $string);
     }
