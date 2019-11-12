@@ -2,6 +2,7 @@
 
 namespace AuronConsultingOSS\Logger;
 
+use DateTime;
 use Psr\Log\AbstractLogger;
 use Psr\Log\InvalidArgumentException;
 use Psr\Log\LogLevel;
@@ -30,15 +31,24 @@ class Console extends AbstractLogger
      * @var array
      */
     private $logPrefixesPerLevel = [
-        LogLevel::INFO      => '1;32m [ Info ]     ',
-        LogLevel::NOTICE    => '1;35m [ Notice ]   ',
-        LogLevel::DEBUG     => '1;34m [ Debug ]    ',
-        LogLevel::WARNING   => '1;33m [ Warning ]  ',
-        LogLevel::ALERT     => '3;33m [ Alert ]    ',
-        LogLevel::ERROR     => '1;31m [ Error ]    ',
-        LogLevel::EMERGENCY => '3;33m [ Emergency ]',
-        LogLevel::CRITICAL  => '1;31m [ Critical ] ',
+        LogLevel::INFO      => '1;32m [ Info %s ]     ',
+        LogLevel::NOTICE    => '1;35m [ Notice %s ]   ',
+        LogLevel::DEBUG     => '1;34m [ Debug %s ]    ',
+        LogLevel::WARNING   => '1;33m [ Warning %s ]  ',
+        LogLevel::ALERT     => '3;33m [ Alert %s ]    ',
+        LogLevel::ERROR     => '1;31m [ Error %s ]    ',
+        LogLevel::EMERGENCY => '3;33m [ Emergency %s ]',
+        LogLevel::CRITICAL  => '1;31m [ Critical %s ] ',
     ];
+    /**
+     * @var bool
+     */
+    private $enableTimestamp;
+
+    public function __construct(bool $enableTimestamp = true)
+    {
+        $this->enableTimestamp = $enableTimestamp;
+    }
 
     /**
      * Logs to an arbitrary log level.
@@ -190,7 +200,16 @@ class Console extends AbstractLogger
      */
     protected function format(string $level, string $message): string
     {
-        return "\033[" . $this->logPrefixesPerLevel[$level] . "\033[0m " . $message . PHP_EOL;
+        $timestamp = '';
+        if ($this->enableTimestamp === true) {
+            $timestamp = sprintf("\e[1m- %s", (new DateTime())->format(DATE_ATOM));
+        }
+
+        // Evaluate %s within the log prefix to add formatted timestamp to
+        $prefix = sprintf($this->logPrefixesPerLevel[$level], $timestamp);
+
+        // Double quotes are important to avoid needing to insert the unicode equivalent
+        return sprintf("\e[%s\e[0m %s%s", $prefix, $message, PHP_EOL);
     }
 
     /**
