@@ -13,6 +13,7 @@
         "IdenticalEqual": false,
         "NotIdenticalNotEqual": false,
         "CastString": false,
-        "ProtectedVisibility": false
+        "ProtectedVisibility": false,
+        "Break_": false
     }
 }
