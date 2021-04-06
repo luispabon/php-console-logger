@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 namespace AuronConsultingOSS\Logger;
 
@@ -28,7 +29,7 @@ class Console extends AbstractLogger
     /**
      * Console-coloured prefixes to add to log messages.
      *
-     * @var array
+     * @var string[]
      */
     private $logPrefixesPerLevel = [
         LogLevel::INFO      => '1;32m [ Info %s]     ',
@@ -40,6 +41,7 @@ class Console extends AbstractLogger
         LogLevel::EMERGENCY => '3;33m [ Emergency %s]',
         LogLevel::CRITICAL  => '1;31m [ Critical %s] ',
     ];
+
     /**
      * @var bool
      */
@@ -67,9 +69,9 @@ class Console extends AbstractLogger
      * @see: http://www.php-fig.org/psr/psr-3/#1-2-message
      * @see: http://www.php-fig.org/psr/psr-3/#1-3-context
      *
-     * @param mixed  $level
-     * @param string $message
-     * @param array  $context
+     * @param mixed   $level
+     * @param string  $message
+     * @param mixed[] $context
      *
      * @return void|null
      *
@@ -142,7 +144,7 @@ class Console extends AbstractLogger
      * exceptions into a useful string. Any array like values within (exception trace, or anything other than an
      * exception) will be json encoded.
      *
-     * @param array $context
+     * @param mixed[] $context
      *
      * @return string
      *

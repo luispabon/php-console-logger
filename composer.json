@@ -25,14 +25,14 @@
     },
 
     "require": {
-        "php":     ">=7.2.0",
+        "php":     ">=7.3.0",
         "ext-json":  "*",
         "psr/log": "^1.0"
     },
 
     "require-dev": {
-        "phpunit/phpunit": "^8.4.3",
-        "phpstan/phpstan": "^0.11.19",
-        "infection/infection": "^0.14.2"
+        "phpunit/phpunit": "^9.5",
+        "phpstan/phpstan": "^0.12",
+        "infection/infection": "^0.18"
     }
 }
