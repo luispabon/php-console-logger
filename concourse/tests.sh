@@ -18,7 +18,7 @@ phpdismod xdebug
 composer -o install
 
 # Static analysis, unit tests
-make all
+make all -e XDEBUG_MODE=coverage
 
 # Go back to initial working dir to allow outputs to function
 cd ${INITIAL_FOLDER}
