@@ -125,10 +125,10 @@ class ConsoleTest extends TestCase
 
     /**
      * @test
+     * @dataProvider nonExceptionContexts
      */
-    public function logParsesContextWithoutException(): void
+    public function logParsesContextWithoutException(array $context): void
     {
-        $context  = ['foo' => 'bar'];
         $message  = 'foobar';
         $logLevel = LogLevel::INFO;
 
@@ -166,10 +166,10 @@ class ConsoleTest extends TestCase
 
         // Bit of a stretch to check for the exception trace and all, just check the general format and contents
         $argumentCheckCallback = function ($arg) use ($logLevel, $message) {
-            self::assertRegExp("/^\\033\[/", $arg);
-            self::assertRegExp("/{$logLevel}/i", $arg);
-            self::assertRegExp("/{$message}/", $arg);
-            self::assertRegExp("/\\033\[0m/", $arg);
+            self::assertMatchesRegularExpression("/^\\033\[/", $arg);
+            self::assertMatchesRegularExpression("/{$logLevel}/i", $arg);
+            self::assertMatchesRegularExpression("/{$message}/", $arg);
+            self::assertMatchesRegularExpression("/\\033\[0m/", $arg);
 
             return true;
         };
@@ -199,11 +199,14 @@ class ConsoleTest extends TestCase
 
         // Bit of a stretch to check for the exception trace and all, just check the general format and contents
         $argumentCheckCallback = function ($arg) use ($logLevel, $message) {
-            self::assertRegExp("/^\\033\[/", $arg);
-            self::assertRegExp("/{$logLevel}/i", $arg);
-            self::assertRegExp("/{$message}/", $arg);
-            self::assertRegExp("/\\033\[0m/", $arg);
-            self::assertRegExp('/(\d{4})-(\d{2})-(\d{2})T(\d{2})\:(\d{2})\:(\d{2})\+(\d{2})\:(\d{2})/', $arg);
+            self::assertMatchesRegularExpression("/^\\033\[/", $arg);
+            self::assertMatchesRegularExpression("/{$logLevel}/i", $arg);
+            self::assertMatchesRegularExpression("/{$message}/", $arg);
+            self::assertMatchesRegularExpression("/\\033\[0m/", $arg);
+            self::assertMatchesRegularExpression(
+                '/(\d{4})-(\d{2})-(\d{2})T(\d{2})\:(\d{2})\:(\d{2})\+(\d{2})\:(\d{2})/',
+                $arg
+            );
 
             return true;
         };
@@ -238,6 +241,14 @@ class ConsoleTest extends TestCase
         return [
             'stringable class'  => [new stringableClass()],
             'generic exception' => [new \Exception()],
+        ];
+    }
+
+    public function nonExceptionContexts(): array
+    {
+        return [
+            'no exception on context'                  => [['foo' => 'bar']],
+            'exception key does not contain exception' => [['exception' => 'yes']],
         ];
     }
 }
