@@ -11,9 +11,11 @@ mkdir reports
 
 # Determine php version
 PHP_VERSION=$(php -r "echo preg_replace('/.[0-9]+(-.*)?$/', '', phpversion());")
+echo "Detected PHP Version: ${PHP_VERSION}"
 
 # Downgrade composer to v1 if we're on php 7.3 (fixes infection requiring package-versions which requires php 7.4 if we're on composer 2)
 if [[ "${PHP_VERSION}" == "7.3" ]]; then
+    echo "Downgrading composer to v1.x because we're on php 7.3"
     composer self-update --1
 fi
 
