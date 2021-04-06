@@ -30,7 +30,7 @@ class Console extends AbstractLogger
      *
      * @var string[]
      */
-    private $logPrefixesPerLevel = [
+    private array $logPrefixesPerLevel = [
         LogLevel::INFO      => '1;32m [ Info %s]     ',
         LogLevel::NOTICE    => '1;35m [ Notice %s]   ',
         LogLevel::DEBUG     => '1;34m [ Debug %s]    ',
@@ -40,10 +40,8 @@ class Console extends AbstractLogger
         LogLevel::EMERGENCY => '3;33m [ Emergency %s]',
         LogLevel::CRITICAL  => '1;31m [ Critical %s] ',
     ];
-    /**
-     * @var bool
-     */
-    private $enableTimestamp;
+
+    private bool $enableTimestamp;
 
     /**
      * @codeCoverageIgnore
