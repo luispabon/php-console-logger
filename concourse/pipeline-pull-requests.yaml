@@ -28,7 +28,7 @@ jobs:
           path: code
           status: pending
 
-      - task: run tests php 7.2
+      - task: tests_php_72
         file: code/concourse/task-run-tests-72.yaml
         on_failure:
           put: code
@@ -36,7 +36,7 @@ jobs:
             path: code
             status: failure
 
-      - task: run tests php 7.3
+      - task: tests_php_73
         file: code/concourse/task-run-tests-73.yaml
         on_failure:
           put: code
@@ -44,7 +44,15 @@ jobs:
             path: code
             status: failure
 
-      - task: run tests php 7.4
+      - task: tests_php_74
+        file: code/concourse/task-run-tests-74.yaml
+        on_failure:
+          put: code
+          params:
+            path: code
+            status: failure
+
+      - task: tests_php_80
         file: code/concourse/task-run-tests.yaml
         on_failure:
           put: code
@@ -58,7 +66,7 @@ jobs:
           path: code
           status: success
 
-      - task: code coverage reports
+      - task: code_coverage_reports
         params:
           CODECOV_TOKEN: {{codecov-token}}
         file: code/concourse/task-codecov.yaml
