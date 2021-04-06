@@ -10,8 +10,9 @@ cd code
 mkdir reports
 
 # Install xdebug & disable
+PHP_VERSION=$(php -r "echo preg_replace('/.[0-9]+$/', '', phpversion());")
 apt-get update
-apt-get install -y php-xdebug make
+apt-get install -y php${PHP_VERSION}-xdebug make
 phpdismod xdebug
 
 composer -o install
