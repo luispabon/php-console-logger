@@ -28,14 +28,6 @@ jobs:
           path: code
           status: pending
 
-      - task: tests_php_72
-        file: code/concourse/task-run-tests-72.yaml
-        on_failure:
-          put: code
-          params:
-            path: code
-            status: failure
-
       - task: tests_php_73
         file: code/concourse/task-run-tests-73.yaml
         on_failure:
