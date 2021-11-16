@@ -15,6 +15,15 @@ jobs:
   tests:
     timeout-minutes: 10
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - container_image: phpdockerio/php80-cli
+            xdebug_package: php8.0-xdebug
+
+    env:
+      PHP_CONTAINER: ${{ matrix.container_image }}
+      XDEBUG_PACKAGE: ${{ matrix.xdebug_package }}
 
     steps:
       - name: Checkout
@@ -30,7 +39,7 @@ jobs:
         run: make coverage-tests
 
       - name: Run mutation tests
-        run: make mutation-tests
+        run: make mutation-tests -e PHP_CONTAINER=${{ matrix.container_image }}
 
       - uses: codecov/codecov-action@v2
         with:
