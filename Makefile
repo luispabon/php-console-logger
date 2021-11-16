@@ -8,7 +8,7 @@ prep-ci:
 	$(PHP_RUN) composer -o install
 
 static-analysis:
-	$(PHP_RUN) vendor/bin/phpstan --ansi -v analyse -l 9 src
+	$(PHP_RUN) vendor/bin/phpstan --ansi -v analyse -l 7 src
 
 unit-tests:
 	$(PHP_RUN) vendor/bin/phpunit --testdox --colors=always
