@@ -20,4 +20,4 @@ coverage-tests:
 		vendor/bin/phpunit --testdox --colors=always"
 
 mutation-tests:
-	$(PHP_RUN) vendor/bin/infection --coverage=reports/infection --threads=2 -s --min-msi=0 --min-covered-msi=0
+	$(PHP_RUN) vendor/bin/infection --coverage=reports/infection --threads=2 -s --min-msi=100 --min-covered-msi=100
